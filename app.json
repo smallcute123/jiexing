@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/beforelogin",
+    "pages/home/home",
+    "pages/starting/starting",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/city/city",
+    "pages/citys/citys"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "捷行",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,17 @@
+<view class="container">
+    
+    <view class="content">
+        <view class="circle-str"></view>
+             <navigator url= "/pages/starting/starting" redirect > 
+                <view class="didi-input-str" style="color: #333333">{{address}}</view>
+             </navigator>
+            <navigator url=  "/pages/home/home" redirect >
+             <input type="text" class="didi-input-end" value="{{destination}}"  style="color: #333333" placeholder="你要去哪儿" placeholder-color="#ccccccc" focus="{{false}}"/>
+                </navigator>
+            <view class="circle-end"></view>
+                
+        <button class="didi-btn"bindtap="toCast">规划路线</button>
+    </view>
+    <!-- 页面内容 --> 
+</view>
+
