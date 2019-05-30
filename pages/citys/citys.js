@@ -48,6 +48,7 @@ Page({
         data: city
       })
       //点击后给父组件可以通过bindcitytap事件，获取到cityname的值，这是子组件给父组件传值和触发事件的方法
+      this.triggerEvent('citytap', { cityname: city });
       this.setData({
         city: city
       })

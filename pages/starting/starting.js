@@ -4,18 +4,21 @@ var qqmapsdk;
 qqmapsdk = new QQMapWX({
   key: '3GJBZ-X6SKD-Q4Q46-PYUL2-TQXAS-XHBLN'
 });
-const app = getApp()
+const app = getApp();
 Page({
   data: {
     scale: 16,
     latitude: 0,
     longitude: 0,
     address: '',
-    bluraddress: '',
+    bluraddress: ''
 
 
   },
   onLoad: function (options) {
+      this.setData({
+        city: app.globalData.city
+      }),
     wx.getLocation({
       type: "gcj02",
       success: (res) => {
@@ -38,101 +41,66 @@ Page({
               address: res.result.address,
               bluraddress: res.result.formatted_addresses.recommend
             });
-          },
+            let bluraddress = that.data.bluraddress;
+            let address=that.data.address;
+            app.globalData.bluraddress=bluraddress;
+            console.log(bluraddress,address);
+            qqmapsdk.geocoder({
+              //获取表单传入地址
+              address: address, //地址参数，例：固定地址，address: '北京市海淀区彩和坊路海淀西大街74号'
+              success: function (res) {//成功后的回调
+                console.log(res);
+                var res = res.result;
+                var latitude = res.location.lat;
+                var longitude = res.location.lng;
+                //根据地址解析在地图上标记解析地址位置
+                that.setData({ // 获取返回结果，放到markers及poi中，并在地图展示
+                  markers: [{
+                    id: 0,
+                    title: res.title,
+                    latitude: latitude,
+                    longitude: longitude,
+                    iconPath: '../../assets/images/address.png',//图标路径
+                    width: 40,
+                    height: 40,
+                    callout: { //可根据需求是否展示经纬度
+                      content: latitude + ',' + longitude,
+                      color: '#000',
+                      display: 'ALWAYS'
+                    }
+                  }],
+                  poi: { //根据自己data数据设置相应的地图中心坐标变量名称
+                    latitude: latitude,
+                    longitude: longitude
+                  }
+                });
+              },
+              fail: function (error) {
+                console.error(error);
 
-        });
-      }
-    })
-
-    // this.moveToLocation();
-
-    wx.getSystemInfo({
-      success: (res) => {
-        this.setData({
-          controls: [{
-            id: 1,
-            iconPath: '../../assets/images/marker.png',
-            position: {
-              left: res.windowWidth / 2 - 11,
-              top: res.windowHeight / 2 - 45,
-              width: 35,
-              height: 45
-            },
-            clickable: true
-          }, {
-            id: 2,
-            iconPath: '../../assets/images/location.png',
-            position: {
-              left: 20, // 单位px
-              top: res.windowHeight - 200,
-              width: 50, // 控件宽度/px
-              height: 40,
-            },
-            clickable: true
-          }],
+              },
+              complete: function (res) {
+                console.log(res);
+              }
+            });
+          }
         })
-      }
-    })
-  },
-
-  onReady: function () {
-    this.mapCtx = wx.createMapContext("didiMap"); // 地图组件的id
-    this.movetoPosition()
-
-  },
-  controltap: function (e) {
-
-    console.log(e.controlId)
-    if (e.controlId == 1) {
-      this.movetoLocation();
-    }
-
-  },
-  bindregionchange: function (e) {
-    var that = this
-    this.mapCtx.getCenterLocation({
-      success: function (res) {
-        app.globalData.strLatitude = res.latitude
-        app.globalData.strLongitude = res.longitude
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude,
           },
-          success: function (res) {
 
-            that.setData({
-              address: res.result.address,
-              bluraddress: res.result.formatted_addresses.recommend
-            })
-          },
         });
-
-      }
-    })
-
-  },
-  movetoPosition: function () {
-    this.mapCtx.moveToLocation();
-  },
-  toIndex() {
-    let bluraddress = this.data.bluraddress;
-    app.globalData.bluraddress = bluraddress
-    wx.redirectTo({
-      url: "/pages/index/index",
-    })
+     
   },
   toIndex(e) {
-    const destination = e.currentTarget.dataset.destination;
-    const endAddress = e.currentTarget.dataset.end;
+    const bluraddress= e.currentTarget.dataset.destination;
+    const strAddress = e.currentTarget.dataset.end;
     qqmapsdk.geocoder({
-      address: endAddress,
+      address: strAddress,
       success: function (res) {
-        app.globalData.endLatitude = res.result.location.lat;
-        app.globalData.endLongitude = res.result.location.lng;
+        app.globalData.strLatitude = res.result.location.lat;
+        app.globalData.strLongitude = res.result.location.lng;
       }
     })
-    app.globalData.destination = destination,
+    app.globalData.bluraddress = bluraddress,
       wx.redirectTo({
         url: "/pages/index/index",
       })

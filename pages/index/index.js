@@ -22,8 +22,7 @@ Page({
     this.setData({
 
       address: app.globalData.bluraddress,
-      destination: app.globalData.destination,
-      currentTab: app.globalData.id,
+      destination: app.globalData.destination
     })
   },
 

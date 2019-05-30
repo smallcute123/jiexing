@@ -4,7 +4,7 @@
         <view class="location-city" bindtap="switchCity">
             <text>{{city||'城市'}}</text>
         </view>
-        <input type="text" class="location-input" value="{{value}}"  bindinput="searchInputend"placeholder="你要去哪儿"placeholder-style="color:#cccccc"/>
+        <input type="text" class="location-input" value="{{value}}"  bindinput="searchInputend"placeholder="从哪儿出发"placeholder-style="color:#cccccc"/>
         <navigator url="/pages/index/index" redirect ><view class="location-cancel">取消</view></navigator>
     </view>
     <view class="addressList">
@@ -33,20 +33,14 @@
                </view> 
         </view>
     </scroll-view>
-</view>
+    </view>
+       <map  id="myMap"
+    markers="{{markers}}"
+    style="width:100%;height:100%;"
+    longitude="{{poi.longitude}}"
+    latitude="{{poi.latitude}}"
+    scale='16' show-location>
+</map>
 
-   <map class="didiMap" id="didiMap"
-   latitude="{{latitude}}"
-    longitude="{{longitude}}"
-     scale="{{scale}}"
-      bindregionchange="bindregionchange"
-       polyline="{{polyline}}" 
-       markers="{{markers}}"
-        controls="{{controls}}" 
-    bindmarkertap="bindmarkertap"  
-    bindcontroltap="controltap" 
-    show-location>
-    
-    
-    </map>
+
   </view>

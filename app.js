@@ -35,13 +35,14 @@ App({
   },
   globalData: {
       userInfo: null,
-      bluraddress: '范家新村-公交站',
+      bluraddress: '',
       destination: '',
       strLatitude: 0,
       strLongitude: 0,
       endLatitude: 0,
       endLongitude: 0,
       city:"",
+      location:""
     
 
   }
