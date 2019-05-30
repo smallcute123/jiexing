@@ -28,7 +28,7 @@ Page({
       }
     })
     app.globalData.destination = destination,
-      wx.redirectTo({
+      wx.switchTab({
         url: "/pages/index/index",
       })
   },

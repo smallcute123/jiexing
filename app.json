@@ -6,7 +6,9 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/city/city",
-    "pages/citys/citys"
+    "pages/citys/citys",
+    "pages/user/user",
+    "pages/neighbor/neighbor"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -14,5 +16,29 @@
     "navigationBarTitleText": "捷行",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#8a8a8a",
+    "backgroundColor": "#ffffff",
+    "selectedColor": "#000000",
+    "position": "bottom",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "assets/images/11.png",
+        "selectedIconPath": "assets/images/1.png"
+      },
+      {
+        "pagePath": "pages/neighbor/neighbor",
+        "iconPath": "assets/images/22.png",
+        "selectedIconPath": "assets/images/2.png"
+      },
+            {
+              "pagePath": "pages/user/user",
+              "iconPath": "assets/images/33.png",
+              "selectedIconPath": "assets/images/3.png"
+            }
+    ]
+  }
 }

@@ -101,7 +101,7 @@ Page({
       }
     })
     app.globalData.bluraddress = bluraddress,
-      wx.redirectTo({
+      wx.switchTab({
         url: "/pages/index/index",
       })
   },

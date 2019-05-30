@@ -15,7 +15,7 @@ Page({
   onShow: function () {
     time1 = setTimeout(function () {
       wx.hideLoading()
-      wx.redirectTo({
+      wx.switchTab({
         url: 'index',
       })
     }, 2000)

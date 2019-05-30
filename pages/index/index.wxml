@@ -1,6 +1,9 @@
 <view class="container">
     
     <view class="content">
+    <view class="circle-middle"></view>
+    <picker class='time-picker' mode="multiSelector" bindchange="bindStartMultiPickerChange" bindtap='pickerTap' bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" 
+    style="color: #333333"range="{{multiArray}}">{{startDate}}</picker>
         <view class="circle-str"></view>
              <navigator url= "/pages/starting/starting" redirect > 
           <input type="text" class="didi-input-str" value="{{address}}"  style="color: #333333" placeholder="从哪儿出发" placeholder-color="#ccccccc" focus="{{false}}" />
