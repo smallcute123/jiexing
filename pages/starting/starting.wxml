@@ -5,7 +5,7 @@
             <text>{{city||'城市'}}</text>
         </view>
         <input type="text" class="location-input" value="{{value}}"  bindinput="searchInputend"placeholder="从哪儿出发"placeholder-style="color:#cccccc"/>
-        <navigator url="/pages/index/index" redirect ><view class="location-cancel">取消</view></navigator>
+        <navigator url="/pages/index/index" open-type = "switchTab" ><view class="location-cancel">取消</view></navigator>
     </view>
     <view class="addressList">
     <scroll-view  scroll-with-animation="{{true}}" >

@@ -42,7 +42,8 @@ App({
       endLatitude: 0,
       endLongitude: 0,
       city:"",
-      location:""
+      location:"",
+      startDate:""
     
 
   }

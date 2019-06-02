@@ -20,21 +20,22 @@ Page({
     destination: '',
     bluraddress: '',
     index: '',
-    startDate: "请选择日期",
+    startDate: "",
 
     multiArray: [['今天', '明天', '3-2', '3-3', '3-4', '3-5'], [0, 1, 2, 3, 4, 5, 6], [0, 10, 20]],
     multiIndex: [0, 0, 0],
   },
   onShow() {
     this.setData({
-
-      address: app.globalData.bluraddress,
+      startDate:app.globalData.startDate,
+       address: app.globalData.bluraddress,
       destination: app.globalData.destination
     })
   },
 
   toCast(e) {
     const destination = this.data.destination
+    const startdate=this.data.startDate
     if (destination == '') {
       wx.showToast({
         title: '目的地不能为空',
@@ -42,62 +43,22 @@ Page({
         mask: true,
         duration: 1000
       })
-    } else {
-
-      let { endLatitude, endLongitude } = app.globalData
-      qqmapsdk.calculateDistance({
-        mode: 'driving',
-        to: [{
-          latitude: endLatitude,
-          longitude: endLongitude
-        }],
-        success: (res) => {
-          // console.log(res.result.elements[0].distance)
-          var num1 = 8 + 1.9 * (res.result.elements[0].distance / 1000)
-          var num2 = 12 + 1.8 * (res.result.elements[0].distance / 1000)
-          var num3 = 16 + 2.9 * (res.result.elements[0].distance / 1000)
-          var play1 = num1.toFixed(1)
-          var play2 = num2.toFixed(1)
-          var play3 = num3.toFixed(1)
-          this.setData({
-            play1: play1,
-            play2: play2,
-            play3: play3,
-          })
-        },
-
-      });
-      this.setData({
-
-        callCart: false
+    } 
+    if (startdate == "") {
+      wx.showToast({
+        title: '请选择出发日期',
+        icon: 'fail',
+        mask: true,
+        duration: 1000
       })
+    } 
+    else {
+      wx.navigateTo({
+        url: '/pages/result/result',
+      })
+
     }
 
-
-  },
-  switchNav(event) {
-
-    this.requestWaitingtime();
-    const cart = event.currentTarget.dataset.name
-    let text = this.data.navData;
-    this.setData({
-      cart,
-      isLoading: true,
-      waitingTimes: ''
-    })
-    var cur = event.currentTarget.dataset.current;
-    var singleNavWidth = this.data.windowWindth / 6;
-
-    this.setData({
-      navScrollLeft: (cur - 1) * singleNavWidth,
-      currentTab: cur,
-    })
-  },
-  onChange(e) {
-    const currentCost = e.target.dataset.index;
-    this.setData({
-      currentCost
-    })
 
   },
   pickerTap: function () {
@@ -164,7 +125,7 @@ Page({
 
     // 然后再判断当前改变的是哪一列,如果是第1列改变
     if (e.detail.column === 0) {
-      // 如果第一列滚动到第一行
+      // 如果第一列滚动到第一行b
       if (e.detail.value === 0) {
 
         that.loadData(hours, minute);
@@ -316,8 +277,10 @@ Page({
     }
 
     var startDate = monthDay + " " + hours + ":" + minute;
-    that.setData({
-      startDate: startDate
-    })
+   that.setData({
+     startDate:startDate
+
+   })
+    app.globalData.startDate=startDate;
   }
 })

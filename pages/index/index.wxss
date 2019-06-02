@@ -103,6 +103,7 @@ page{
   margin-top: 5rpx;
   line-height: 120rpx;
   left: 105rpx;
+  color:#635d5d;
 }
 .didi-input-end{
   position: absolute;

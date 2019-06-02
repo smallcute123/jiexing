@@ -1,0 +1,46 @@
+<!--pages/result/result.wxml-->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+</view>
+ 
+<!--首页-->
+<view hidden="{{currentTab!==0}}">
+ <view class="cu-timeline"role=""aria-label="">
+<view class="cu-item "role=""aria-label="">
+<view class="content"role=""aria-label="">
+<view class="cu-capsule radius"role=""aria-label="">
+<view class="cu-tag bg-white "role=""aria-label="">地铁</view>
+<view class="cu-tag "role=""aria-label="">12:00</view>
+</view>
+<view style="color:#fff;font-size:30rpx;margin-top:30rpx;">
+<view>乘坐二号线地铁</view>
+<view role=""aria-label="">在三阳广场站下车</view>
+
+</view>
+</view>
+</view>
+<view class="cu-item text-green"role=""aria-label="">
+<view class="bg-green content shadow"role=""aria-label="">
+<view class="cu-capsule radius"role=""aria-label="">
+<view class="cu-tag bg-white text-green"role=""aria-label="">高铁</view>
+<view class="cu-tag line-white"role=""aria-label="">16：00</view>
+</view>
+<view style="color:#fff;font-size:30rpx;margin-top:30rpx;">
+<view role=""aria-label="">乘G7206次列车</view>
+<view role=""aria-label="">在无锡站下车</view>
+
+</view>
+</view>
+</view>
+</view>
+</view>
+ 
+<!--搜索-->
+<view hidden="{{currentTab!==1}}">
+  tab_02
+</view>
+ 
+<!--我-->
+<view hidden="{{currentTab!==2}}">
+  tab_03
+</view>
