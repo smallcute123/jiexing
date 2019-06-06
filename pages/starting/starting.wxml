@@ -2,7 +2,7 @@
 <view class="container">
       <view class="location">
         <view class="location-city" bindtap="switchCity">
-            <text>{{city||'城市'}}</text>
+            <text>{{strcity||'城市'}}</text>
         </view>
         <input type="text" class="location-input" value="{{value}}"  bindinput="searchInputend"placeholder="从哪儿出发"placeholder-style="color:#cccccc"/>
         <navigator url="/pages/index/index" open-type = "switchTab" ><view class="location-cancel">取消</view></navigator>

@@ -1,3 +1,8 @@
+<scroll-view scroll-y class="scrollPage">
+  <view class="UCenter-bg">
+    <image src="https://image.weilanwl.com/gif/wave.gif" mode="scaleToFill" class="gif-wave"></image>
+    </view>
+  </scroll-view>
 <view class="container">
     
     <view class="content">
@@ -14,7 +19,9 @@ range="{{multiArray}}">{{startDate||"选择出发日期"}}</picker>
             <view class="circle-end"></view>
                 
         <button class="jiexing-btn"bindtap="toCast">规划路线</button>
+        
     </view>
     <!-- 页面内容 --> 
+ 
 </view>
 

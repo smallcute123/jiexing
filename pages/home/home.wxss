@@ -4,6 +4,28 @@ page,.container{
     height: 100%;
     background-color: #f3f4f5;
 }
+.deleteIcon{
+  width:45rpx;
+  height:50rpx;
+  float:right;
+}
+.title{
+  text-align: left;
+ margin-top:110rpx;
+color:#999999;
+font-size:25rpx;
+}
+.historyContent{
+  position: fixed;
+  width: 686rpx;
+  height: 500rpx;
+  background-color: #fff;
+  margin-left: 32rpx;
+  top: 140rpx;
+  -moz-box-shadow:1px 1px 6px #fff;
+  -webkit-box-shadow:1px 1px 6px #fff;
+  box-shadow:1px 1px 6px #fff;
+}
 .location{
     position: fixed ;
     width: 100%;

@@ -21,20 +21,35 @@ Page({
     bluraddress: '',
     index: '',
     startDate: "",
+    strcity:"",
+    isOpen: false,
+    statusMsg: '未连接',
+    city:"",
 
-    multiArray: [['今天', '明天', '3-2', '3-3', '3-4', '3-5'], [0, 1, 2, 3, 4, 5, 6], [0, 10, 20]],
+ multiArray: [['今天', '明天', '3-2', '3-3', '3-4', '3-5'], [0, 1, 2, 3, 4, 5, 6], [0, 10, 20]],
     multiIndex: [0, 0, 0],
   },
   onShow() {
     this.setData({
       startDate:app.globalData.startDate,
        address: app.globalData.bluraddress,
-      destination: app.globalData.destination
+      destination: app.globalData.destination,
+      city:app.globalData.city,
+      strcity: app.globalData.strcity
     })
   },
+  onReady(){
+   
+  },
 
-  toCast(e) {
+
+
+  toCast:function(e) {
+    var that = this;
     const destination = this.data.destination
+    const address=this.data.address
+    const city=this.data.city
+    const strcity=this.data.strcity
     const startdate=this.data.startDate
     if (destination == '') {
       wx.showToast({
@@ -52,15 +67,36 @@ Page({
         duration: 1000
       })
     } 
-    else {
-      wx.navigateTo({
-        url: '/pages/result/result',
-      })
 
-    }
+    wx.showLoading({
+      title: '加载中...',
+    })
 
-
-  },
+    wx.request({
+      url: 'http://localhost:8080/Posttoc',
+      data: {
+        date: startdate,
+        strcity: strcity,
+        address: address,
+        city: city,
+        destination: destination
+      },
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      success: function (res) {
+        console.log(res.data);
+        wx.navigateTo({
+          url: '/pages/result/result',
+        })
+      },
+      fail: function (res) {
+        console.log(".....fail.....");
+      }
+    })
+        },
+  
   pickerTap: function () {
     date = new Date();
 
@@ -100,9 +136,6 @@ Page({
 
     this.setData(data);
   },
-
-
-
 
   bindMultiPickerColumnChange: function (e) {
     date = new Date();

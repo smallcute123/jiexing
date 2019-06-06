@@ -148,10 +148,6 @@ page{
 	color: var(--white);
 }
 
-.cu-tag.badge:not {
-	background-color: #dd514c;
-}
-
 .cu-tag:empty:not([class*="cuIcon-"]) {
 	padding: 0rpx;
 	width: 16rpx;

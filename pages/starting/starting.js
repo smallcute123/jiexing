@@ -11,13 +11,14 @@ Page({
     latitude: 0,
     longitude: 0,
     address: '',
-    bluraddress: ''
+    bluraddress: '',
+    strcity:''
 
 
   },
   onLoad: function (options) {
       this.setData({
-        city: app.globalData.city
+       strcity: app.globalData.strcity
       }),
     wx.getLocation({
       type: "gcj02",
@@ -113,9 +114,9 @@ Page({
   searchInputend(e) {
 
     var that = this;
-    var value = e.detail.value
+    var value = e.detail.value  
     var address = that.address;
-    var city = app.globalData.city;
+    var city = app.globalData.strcity;
     qqmapsdk.getSuggestion({
       keyword: value + "地铁站",
       region: city,

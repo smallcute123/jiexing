@@ -9,7 +9,9 @@
     "pages/citys/citys",
     "pages/user/user",
     "pages/neighbor/neighbor",
-    "pages/result/result"
+    "pages/result/result",
+    "pages/suggestion/suggestion",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",

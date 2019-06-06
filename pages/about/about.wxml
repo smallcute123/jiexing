@@ -1,0 +1,9 @@
+<!--pages/about/about.wxml-->
+<view style="text-align:center;color:white;">
+<view class="br" ></view>
+
+<text>我们生活在希望的田野上</text>
+<view class="br"></view>
+<text>我们是拥有梦想的三条咸鱼</text>
+</view>
+

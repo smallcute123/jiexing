@@ -8,6 +8,7 @@
         <navigator url="/pages/index/index"  open-type = "switchTab" ><view class="location-cancel">取消</view></navigator>
     </view>
     <view class="addressList">
+
     <scroll-view  scroll-with-animation="{{true}}" >
     
         <view wx:if="{{!value==''}}" class="destination" wx:for="{{address}}" data-destination="{{item.title}}" data-end="{{item.address}}" bindtap="toIndex" wx:key="{{item.id}}">
@@ -34,4 +35,5 @@
         </view>
     </scroll-view>
 </view>
+
 </view>                                                                                                                  

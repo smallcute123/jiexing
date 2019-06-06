@@ -43,8 +43,9 @@ App({
       endLongitude: 0,
       city:"",
       location:"",
-      startDate:""
-    
+      startDate:"",
+      strcity:""  ,
+      isOpen:0
 
   }
   

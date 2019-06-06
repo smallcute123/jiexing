@@ -1,13 +1,10 @@
-// pages/result/result.js
+// pages/about/about.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    navbar: ['这样最省时', '这样最省钱', '这样最舒适'],
-    currentTab: 0,
-
 
   },
 
@@ -65,11 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  navbarTap: function (e) {
-    this.setData({
-      currentTab: e.currentTarget.dataset.idx
-    })
   }
-
 })

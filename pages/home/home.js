@@ -10,13 +10,57 @@ Page({
   data: {
     value: '',
     address: [],
-    city:""
+    city:"",
+    searchRecord: []
   },
-  onLoad: function () {this.setData({
+  onLoad: function () {
+    this.openHistorySearch();
+    this.setData({
     city: app.globalData.city
   })
   },
+  openHistorySearch: function () {
+    this.setData({
+      searchRecord: wx.getStorageSync('searchRecord') || [],//若无储存则为空
+    })
+  },
 
+  searchSubmitFn: function (e) {
+    var that = this
+    var inputVal = e.detail.value.input
+    var searchRecord = this.data.searchRecord
+    if (inputVal == '') {
+      //输入为空时的处理
+    }
+    else {
+      //将搜索值放入历史记录中,只能放前五条
+      if (searchRecord.length < 5) {
+        searchRecord.unshift(
+          {
+            value: inputVal,
+            id: searchRecord.length
+          }
+        )
+      }
+      else {
+        searchRecord.pop()//删掉旧的时间最早的第一条
+        searchRecord.unshift(
+          {
+            value: inputVal,
+            id: searchRecord.length
+          }
+        )
+      }
+      //将历史记录数组整体储存到缓存中
+      wx.setStorageSync('searchRecord', searchRecord)
+    }
+  },
+  historyDelFn: function () {
+    wx.clearStorageSync('searhRecord')
+    this.setData({
+      searchRecord: []
+    })
+  },
   toIndex(e) {
     const destination = e.currentTarget.dataset.destination;
     const endAddress = e.currentTarget.dataset.end;
@@ -40,7 +84,7 @@ Page({
   searchInputend(e) {
 
     var that = this;
-    var value = e.detail.value
+    var value = e.detail.value;
     var address = that.address;
 var city=app.globalData.city;
     qqmapsdk.getSuggestion({

@@ -45,6 +45,7 @@ Page({
                       })
                       //再次授权，调用wx.getLocation的API
                       vm.getLocation();
+                      vm.nearby_search();
                     } else {
                       wx.showToast({
                         title: '授权失败',
@@ -60,10 +61,12 @@ Page({
         } else if (res.authSetting['scope.userLocation'] == undefined) {
           //调用wx.getLocation的API
           vm.getLocation();
+          vm.nearby_search();
         }
         else {
           //调用wx.getLocation的API
           vm.getLocation();
+          vm.nearby_search();
         }
       }
     })
@@ -130,7 +133,7 @@ Page({
             longitude: res.data[i].location.lng,
             distance: res.data[i]._distance,
             category: res.data[i].category,
-            iconPath: "./../../images/icon/d.png", //图标路径
+            iconPath: "../../assets/images/address.png", //图标路径
             width: 20,
             height: 20
           })
