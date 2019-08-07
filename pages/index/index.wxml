@@ -1,8 +1,31 @@
 <scroll-view scroll-y class="scrollPage">
   <view class="UCenter-bg">
+    <view class="nowWeather">
+    <view class="city w">{{province}} {{city1}}</view>
+    <view class="road w">{{district}}</view>
+    <view class="temp w b">{{tmp}}°</view>
+    <view class="weather w">{{txt}} | 空气 {{qlty}}</view>
+  </view>
+ 
+  <view class="weahterDetail">
+    <view class="">
+      <view class="w center">{{dir}}</view>
+      <view wx:if="{{sc == '微风'}}" class="w b center f50">微风</view>
+      <view wx:else class="w b center f50">{{sc}}级</view>
+    </view>
+    <view class="l"></view>
+    <view class="">
+      <view class="w center">相对湿度</view>
+      <view class="w b center f50">{{hum}}%</view>
+    </view>
+    <view class="l"></view>
+    <view class="">
+      <view class="w center">体感温度</view>
+      <view class="w b center f50">{{fl}}°</view>
+    </view>
+  </view>
     <image src="https://image.weilanwl.com/gif/wave.gif" mode="scaleToFill" class="gif-wave"></image>
     </view>
-  </scroll-view>
 <view class="container">
     
     <view class="content">
@@ -21,7 +44,7 @@ range="{{multiArray}}">{{startDate||"选择出发日期"}}</picker>
         <button class="jiexing-btn"bindtap="toCast">规划路线</button>
         
     </view>
-    <!-- 页面内容 --> 
+
  
 </view>
-
+</scroll-view>

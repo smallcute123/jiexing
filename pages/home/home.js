@@ -13,6 +13,11 @@ Page({
     city:"",
     searchRecord: []
   },
+  openHistorySearch: function () {
+    this.setData({
+      searchRecord: wx.getStorageSync('searchRecord') || [],//若无储存则为空
+    })
+  },
   onLoad: function () {
     this.openHistorySearch();
     this.setData({
@@ -62,6 +67,7 @@ Page({
     })
   },
   toIndex(e) {
+    var searchRecord = this.data.searchRecord;
     const destination = e.currentTarget.dataset.destination;
     const endAddress = e.currentTarget.dataset.end;
     qqmapsdk.geocoder({
@@ -71,6 +77,25 @@ Page({
         app.globalData.endLongitude = res.result.location.lng;
       }
     })
+    if (searchRecord.length < 5) {
+      searchRecord.unshift(
+        {
+          value:destination,
+          id: searchRecord.length
+        }
+      )
+    }
+    else {
+      searchRecord.pop()//删掉旧的时间最早的第一条
+      searchRecord.unshift(
+        {
+          value:destination,
+          id: searchRecord.length
+        }
+      )
+    }
+    //将历史记录数组整体储存到缓存中
+    wx.setStorageSync('searchRecord', searchRecord),
     app.globalData.destination = destination,
       wx.switchTab({
         url: "/pages/index/index",
@@ -82,7 +107,6 @@ Page({
     })
   },
   searchInputend(e) {
-
     var that = this;
     var value = e.detail.value;
     var address = that.address;

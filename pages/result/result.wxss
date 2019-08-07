@@ -4,6 +4,9 @@ page{
   flex-direction: column;
   height: 100%;
 }
+.swiper{
+  height:200px;
+}
 .navbar{
   flex: none;
   display: flex;
@@ -31,6 +34,23 @@ page{
   height: 4rpx;
   background: #2caa33;
 }
+.cu-tag1{
+  	font-size: 24rpx;
+	vertical-align: middle;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	padding: 0rpx 16rpx;
+	height: 48rpx;
+	font-family: Helvetica Neue, Helvetica, sans-serif;
+	white-space: nowrap;
+  background-color: ghostWhite;
+  border-top-left-radius: 12rpx;
+border-bottom-left-radius: 12rpx;
+
+}
 .cu-tag {
 	font-size: 24rpx;
 	vertical-align: middle;
@@ -43,6 +63,7 @@ page{
 	height: 48rpx;
 	font-family: Helvetica Neue, Helvetica, sans-serif;
 	white-space: nowrap;
+  color: white;
 }
 
 .cu-tag:not:not {
@@ -115,7 +136,7 @@ page{
 	border-top-left-radius: 6rpx;
 	border-bottom-left-radius: 6rpx;
   background-color: #ffff;
-  color:#39b54a;
+  color:#2caa33;
 }
 
 .cu-capsule.radius .cu-tag:last-child::after,
@@ -161,7 +182,7 @@ page{
 	height: 32rpx;
 	top: -4rpx;
 	right: -4rpx;
-  background-color:#0bc524;
+  background-color:#2caa33;
 }
 .cu-timeline {
 	display: block;

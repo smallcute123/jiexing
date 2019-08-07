@@ -45,7 +45,16 @@ App({
       location:"",
       startDate:"",
       strcity:""  ,
-      isOpen:0
+    result: [{
+      way: "",
+      strtime: "",
+      line:"",
+      stradderss: "",
+      endaddress: "",
+      endtime: "",
+
+    }],
+    limit:0,
 
   }
   

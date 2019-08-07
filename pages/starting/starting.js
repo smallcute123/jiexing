@@ -12,14 +12,24 @@ Page({
     longitude: 0,
     address: '',
     bluraddress: '',
-    strcity:''
-
-
+    strcity:'',
+    searchRecord1:[
+      "上海虹桥[地铁站]",
+      "万达城[地铁站]"
+    ]
   },
+  openHistorySearch: function() {
+    this.setData({
+    searchRecord1: wx.getStorageSync('searchRecord1') || [],//若无储存则为空
+    })
+  },
+
   onLoad: function (options) {
       this.setData({
        strcity: app.globalData.strcity
       }),
+      this.openHistorySearch()
+
     wx.getLocation({
       type: "gcj02",
       success: (res) => {
@@ -92,6 +102,7 @@ Page({
      
   },
   toIndex(e) {
+    var searchRecord1 = this.data.searchRecord1
     const bluraddress= e.currentTarget.dataset.destination;
     const strAddress = e.currentTarget.dataset.end;
     qqmapsdk.geocoder({
@@ -101,10 +112,36 @@ Page({
         app.globalData.strLongitude = res.result.location.lng;
       }
     })
+    if (searchRecord1.length < 5) {
+      searchRecord1.unshift(
+        {
+          value: bluraddress,
+          id: searchRecord1.length
+        }
+      )
+    }
+    else {
+      searchRecord1.pop()//删掉旧的时间最早的第一条
+      searchRecord1.unshift(
+        {
+          value:bluraddress,
+          id: searchRecord1.length
+        }
+      )
+    }
+    //将历史记录数组整体储存到缓存中
+    wx.setStorageSync('searchRecord1', searchRecord1),
     app.globalData.bluraddress = bluraddress,
       wx.switchTab({
         url: "/pages/index/index",
       })
+  },
+  delete(e){
+    wx.clearStorageSync('searhRecord1')
+    this.setData({
+      searchRecord1: []
+    })
+
   },
   switchCity(e) {
     wx.redirectTo({

@@ -4,10 +4,7 @@ var qqmapsdk;
 var date = new Date();
 var currentHours = date.getHours();
 var currentMinute = date.getMinutes();
-qqmapsdk = new QQMapWX({
-  key: '3GJBZ-X6SKD-Q4Q46-PYUL2-TQXAS-XHBLN'
-});
-const app = getApp()
+const app = getApp();
 Page({
   data: {
     currentCost: 0,
@@ -21,36 +18,193 @@ Page({
     bluraddress: '',
     index: '',
     startDate: "",
-    strcity:"",
+    strcity: "",
     isOpen: false,
     statusMsg: '未连接',
-    city:"",
+    city: "",
+    city1:"",
+    result: [],
+    tmp: "",
+    txt: "",
+    code: "",
+    qlty: "",
+    dir: "",
+    sc: "",
+    hum: "",
+    fl:"",
+    daily_forecast:"",
+    province:"",
+    city1: "",
+    district: "",
+    latitude: "",
+    longitude:"",
 
- multiArray: [['今天', '明天', '3-2', '3-3', '3-4', '3-5'], [0, 1, 2, 3, 4, 5, 6], [0, 10, 20]],
+    multiArray: [['今天', '明天', '3-2', '3-3', '3-4', '3-5'], [0, 1, 2, 3, 4, 5, 6], [0, 10, 20]],
     multiIndex: [0, 0, 0],
+    limit:0
+
   },
-  onShow() {
-    this.setData({
-      startDate:app.globalData.startDate,
-       address: app.globalData.bluraddress,
-      destination: app.globalData.destination,
-      city:app.globalData.city,
-      strcity: app.globalData.strcity
+  onLoad(){
+    qqmapsdk = new QQMapWX({
+      key: '3GJBZ-X6SKD-Q4Q46-PYUL2-TQXAS-XHBLN' //这里自己的key秘钥进行填充
+    });
+    let vm = this;
+    vm.getUserLocation();
+
+  },
+
+  getUserLocation: function () {
+    let vm = this;
+    wx.getSetting({
+      success: (res) => {
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+          wx.showModal({
+            title: '请求授权当前位置',
+            content: '需要获取您的地理位置，请确认授权',
+            success: function (res) {
+              if (res.cancel) {
+                wx.showToast({
+                  title: '拒绝授权',
+                  icon: 'none',
+                  duration: 1000
+                })
+              } else if (res.confirm) {
+                wx.openSetting({
+                  success: function (dataAu) {
+                    if (dataAu.authSetting["scope.userLocation"] == true) {
+                      wx.showToast({
+                        title: '授权成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                      //再次授权，调用wx.getLocation的API
+                      vm.getLocation();
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'none',
+                        duration: 1000
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+        } else if (res.authSetting['scope.userLocation'] == undefined) {
+          //调用wx.getLocation的API
+          vm.getLocation();
+        }
+        else {
+          //调用wx.getLocation的API
+          vm.getLocation();
+        }
+      }
     })
   },
-  onReady(){
-   
+
+  // 微信获得经纬度
+
+  getLocation: function () {
+    let vm = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        var latitude = res.latitude
+        var longitude = res.longitude
+        var speed = res.speed
+        var accuracy = res.accuracy;
+        vm.getLocal(latitude, longitude)
+      },
+      fail: function (res) {
+      }
+    })
   },
 
+  // 获取当前地理位置
 
+  getLocal: function (latitude, longitude) {
+    let vm = this;
+    qqmapsdk.reverseGeocoder({
+      location: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (res) {
+        let province = res.result.ad_info.province
+        let city = res.result.ad_info.city
+        let district = res.result.ad_info.district
+        vm.setData({
+          province: province,
+          city1: city,
+          district: district,
+          latitude: latitude,
+          longitude: longitude
+        })
+        vm.getWeahter(vm.data.city1)
+      },
+      fail: function (res) {
+      },
+      complete: function (res) {
+      }
+    });
+  },
+   getWeahter: function (city) {
+    var that = this
+     var url = "https://free-api.heweather.net/s6/weather"
+    var params = {
+      location: city,
+      key: "617d00cd4b2d4c9eb63c973ad9c719ab"
+    }
+    wx.request({
+      url: url,
+      data: params,
+      success: function (res) {
+        console.log(res);
+        var tmp = res.data.HeWeather6[0].now.tmp;
+        var txt = res.data.HeWeather6[0].now.cond_txt;
+        var code = res.data.HeWeather6[0].now.cond_code;
+        var qlty = res.data.HeWeather6[0].lifestyle[7].brf;
+        var dir = res.data.HeWeather6[0].now.wind_dir;
+        var sc = res.data.HeWeather6[0].now.wind_sc;
+        var hum = res.data.HeWeather6[0].now.hum;
+        var fl = res.data.HeWeather6[0].now.fl;
+        var daily_forecast = res.data.HeWeather6[0].daily_forecast;
+        that.setData({
+          tmp: tmp,
+          txt: txt,
+          code: code,
+          qlty: qlty,
+          dir: dir,
+          sc: sc,
+          hum: hum,
+          fl: fl,
+          daily_forecast: daily_forecast
+        })
+      },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
+  
+  onShow() {
+    this.setData({
+      startDate: app.globalData.startDate,
+      address: app.globalData.bluraddress,
+      destination: app.globalData.destination,
+      city: app.globalData.city,
+      strcity: app.globalData.strcity,
+      limit:app.globalData.limit
+    })
+  },
 
-  toCast:function(e) {
+  toCast: function (e) {
     var that = this;
     const destination = this.data.destination
-    const address=this.data.address
-    const city=this.data.city
-    const strcity=this.data.strcity
-    const startdate=this.data.startDate
+    const address = this.data.address
+    const city = this.data.city
+    const strcity = this.data.strcity
+    const startdate = this.data.startDate
     if (destination == '') {
       wx.showToast({
         title: '目的地不能为空',
@@ -58,7 +212,7 @@ Page({
         mask: true,
         duration: 1000
       })
-    } 
+    }
     if (startdate == "") {
       wx.showToast({
         title: '请选择出发日期',
@@ -66,38 +220,36 @@ Page({
         mask: true,
         duration: 1000
       })
-    } 
+    }
 
-    wx.showLoading({
-      title: '加载中...',
-    })
+    else {
+      // wx.request({
+      //   url: 'https://www.alwayscxy.cn/xuegepi/start.do',
+      //   data: {
+      //     date: startdate,
+      //     strcity: strcity,
+      //     address: address,
+      //     city: city,
+      //     destination: destination,
+      //     username:username
+      //   },
+      //   method: 'POST',
+      //   header: {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   },
+      //   success: function (res) {
+      //     console.log(res.data);
+      //   }, fail: function (res) {
+      //     console.log(".....fail.....");
+      //   }
+      // }),
+      wx.navigateTo({
+        url: '/pages/result/result',
+      })
+    }
+  },
 
-    wx.request({
-      url: 'http://localhost:8080/Posttoc',
-      data: {
-        date: startdate,
-        strcity: strcity,
-        address: address,
-        city: city,
-        destination: destination
-      },
-      method: 'POST',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      success: function (res) {
-        console.log(res.data);
-        wx.navigateTo({
-          url: '/pages/result/result',
-        })
-      },
-      fail: function (res) {
-        console.log(".....fail.....");
-      }
-    })
-        },
-  
-  pickerTap: function () {
+  pickerTap:function () {
     date = new Date();
 
     var monthDay = ['今天', '明天'];
@@ -310,10 +462,10 @@ Page({
     }
 
     var startDate = monthDay + " " + hours + ":" + minute;
-   that.setData({
-     startDate:startDate
+    that.setData({
+      startDate: startDate
 
-   })
-    app.globalData.startDate=startDate;
+    })
+    app.globalData.startDate = startDate;
   }
 })

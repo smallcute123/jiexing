@@ -13,11 +13,32 @@ Page({
 
   },
   onShow: function () {
-    time1 = setTimeout(function () {
-      wx.hideLoading()
-      wx.switchTab({
-        url: 'index',
+      wx.request({
+        url: 'https://www.alwayscxy.cn/xuegepi/initial.do',
+        data: {
+        },
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        success: function (res) {
+          console.log(res.data);
+          wx.switchTab({
+       url: 'index',
+     })
+
+        },
+        fail: function (res) {
+          console.log(".....fail.....");
+        }
       })
-    }, 2000)
+      app.globalData.limit = 1
+    
+    // time1 = setTimeout(function () {
+    //   wx.hideLoading()
+    //   wx.switchTab({
+    //     url: 'index',
+    //   })
+    // }, 2000)
   }
 })

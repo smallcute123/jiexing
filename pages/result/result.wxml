@@ -4,43 +4,64 @@
 </view>
  
 <!--首页-->
-<view hidden="{{currentTab!==0}}">
- <view class="cu-timeline"role=""aria-label="">
-<view class="cu-item "role=""aria-label="">
-<view class="content"role=""aria-label="">
-<view class="cu-capsule radius"role=""aria-label="">
-<view class="cu-tag bg-white "role=""aria-label="">地铁</view>
-<view class="cu-tag "role=""aria-label="">12:00</view>
+<swiper current="{{currentTab}}" class='swiper'duration="300" wx:for="{{result}}">
+<swiper-item>
+<!-- <view hidden="{{!currentTab==0}}" wx:for="{{result}}"> -->
+<view class="cu-timeline"role=""aria-label="" wx:if='{{!item.way==""}}'>
+<view class="cu-item "role=""aria-label=""  wx:if='{{!item.way==""}}'>
+<view class="content"role=""aria-label=""  wx:if='{{!item.way==""}}'>
+<view class="cu-capsule radius"role=""aria-label="" wx:if='{{!item.way==""}}'>
+<view class="cu-tag1 "role=""aria-label="" wx:if='{{!item.way==""}}'>{{item.way}}</view>
+<view class="cu-tag "role=""aria-label="" wx:if='{{!item.strtime==""}}'>{{item.strtime}}</view>
 </view>
 <view style="color:#fff;font-size:30rpx;margin-top:30rpx;">
-<view>乘坐二号线地铁</view>
-<view role=""aria-label="">在三阳广场站下车</view>
-
-</view>
-</view>
-</view>
-<view class="cu-item text-green"role=""aria-label="">
-<view class="bg-green content shadow"role=""aria-label="">
-<view class="cu-capsule radius"role=""aria-label="">
-<view class="cu-tag bg-white text-green"role=""aria-label="">高铁</view>
-<view class="cu-tag line-white"role=""aria-label="">16：00</view>
-</view>
-<view style="color:#fff;font-size:30rpx;margin-top:30rpx;">
-<view role=""aria-label="">乘G7206次列车</view>
-<view role=""aria-label="">在无锡站下车</view>
-
+<view wx:if='{{!item.line==""}}'>{{item.line}}</view>
+<view wx:if='{{!item.straddress==""}}'>出发站：{{item.straddress}}</view>
+<view  wx:if='{{!item.endaddress==""}}'>到达站：{{item.endaddress}}</view>
+<view wx:if='{{!item.endtime==""}}' >预计到达时间：{{item.endtime}}</view>
 </view>
 </view>
 </view>
 </view>
-</view>
- 
+</swiper-item>
+ <swiper-item>
 <!--搜索-->
-<view hidden="{{currentTab!==1}}">
-  tab_02
+<!-- <view hidden="{{!currentTab==1}}" wx:for="{{result}}"> -->
+<view class="cu-timeline"role=""aria-label="" wx:if='{{!item.way==""}}'>
+<view class="cu-item "role=""aria-label=""  wx:if='{{!item.way==""}}'>
+<view class="content"role=""aria-label=""  wx:if='{{!item.way==""}}'>
+<view class="cu-capsule radius"role=""aria-label="" wx:if='{{!item.way==""}}'>
+<view class="cu-tag1"role=""aria-label="" wx:if='{{!item.way==""}}'>{{item.way}}</view>
+<view class="cu-tag "role=""aria-label="" wx:if='{{!item.strtime==""}}'>{{item.strtime}}</view>
 </view>
- 
+<view style="color:#fff;font-size:30rpx;margin-top:30rpx;">
+<view wx:if='{{!item.line==""}}'>{{item.line}}</view>
+<view wx:if='{{!item.straddress==""}}'>出发站：{{item.straddress}}</view>
+<view  wx:if='{{!item.endaddress==""}}'>到达站：{{item.endaddress}}</view>
+<view wx:if='{{!item.endtime==""}}' >预计到达时间：{{item.endtime}}</view>
+</view>
+</view>
+</view>
+</view>
+ </swiper-item>
+  <swiper-item>
 <!--我-->
-<view hidden="{{currentTab!==2}}">
-  tab_03
+<!-- <view hidden="{{!currentTab==2}}" wx:for="{{result}}"> -->
+<view class="cu-timeline"role=""aria-label="" wx:if='{{!item.way==""}}'>
+<view class="cu-item "role=""aria-label=""  wx:if='{{!item.way==""}}'>
+<view class="content"role=""aria-label=""  wx:if='{{!item.way==""}}'>
+<view class="cu-capsule radius"role=""aria-label="" wx:if='{{!item.way==""}}'>
+<view class="cu-tag1"role=""aria-label="" wx:if='{{!item.way==""}}'>{{item.way}}</view>
+<view class="cu-tag "role=""aria-label="" wx:if='{{!item.strtime==""}}'>{{item.strtime}}</view>
 </view>
+<view style="color:#fff;font-size:30rpx;margin-top:30rpx;">
+<view wx:if='{{!item.line==""}}'>{{item.line}}</view>
+<view wx:if='{{!item.straddress==""}}'>出发站：{{item.straddress}}</view>
+<view  wx:if='{{!item.endaddress==""}}'>到达站：{{item.endaddress}}</view>
+<view wx:if='{{!item.endtime==""}}' >预计到达时间：{{item.endtime}}</view>
+</view>
+</view>
+</view>
+</view>
+   </swiper-item>
+   </swiper>

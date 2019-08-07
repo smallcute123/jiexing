@@ -82,9 +82,6 @@
      .destination{
     box-sizing: border-box;
     top: 50rpx;
-    width: 710rpx;
-    margin-left: auto;
-    margin-right: auto;
     box-shadow:3px 5px 10px #e0e0e0;
     background-color: #fff;
    
@@ -106,6 +103,13 @@
       line-height: 119rpx;
       text-align: center;
   }
+  .history.history-image{
+     width: 40rpx;
+      height: 50rpx;
+      line-height: 119rpx;
+    margin-left: 560rpx;
+    margin-bottom: 10rpx;
+  }
   .destination-content image{
       width: 20rpx;
       height: 20rpx;
@@ -119,6 +123,17 @@
       font-size: 26rpx;
   }
   .content-detail{
+      display: block;
+      color: #999999;
+      font-size: 26rpx;
+  }
+  .history{
+      display: flex;
+    margin-top: 10rpx;
+    margin-left:10rpx;
+    flex-flow: row;
+  }
+  .history.detail{
       display: block;
       color: #999999;
       font-size: 26rpx;

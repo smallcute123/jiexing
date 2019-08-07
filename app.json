@@ -19,11 +19,17 @@
     "navigationBarTitleText": "捷行",
     "navigationBarTextStyle": "black"
   },
+
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "sitemapLocation": "sitemap.json",
   "tabBar": {
     "color": "#2caa33",
     "backgroundColor": "#ffffff",
-    "selectedColor": "green",
+    "selectedColor": "#339933",
     "position": "bottom",
     "borderStyle": "black",
     "list": [

@@ -7,22 +7,27 @@
         <input type="text" class="location-input" value="{{value}}"  bindinput="searchInputend"placeholder="你要去哪儿"placeholder-style="color:#cccccc"/>
         <navigator url="/pages/index/index"  open-type = "switchTab" ><view class="location-cancel">取消</view></navigator>
     </view>
+     <view class="history">
+     <view><text class="history.detail">历史记录</text></view>
+    <view>
+   <image  class="history.history-image" src="../../assets/images/icon_trash.png" bindtap="delete"></image>
+   </view>
+   </view>
     <view class="addressList">
 
     <scroll-view  scroll-with-animation="{{true}}" >
-    
-        <view wx:if="{{!value==''}}" class="destination" wx:for="{{address}}" data-destination="{{item.title}}" data-end="{{item.address}}" bindtap="toIndex" wx:key="{{item.id}}">
+     <view class="destination" wx:for="{{searchRecord}}" data-destination="{{item.value}}" data-end="{{item}}" wx:key="{{item.id}}" bindtap="toIndex" >
                <view class="destination-content">
                    <view class="content-image">
                    <image src="../../assets/images/clock.png"></image>
                 </view>
                    <view class="content">
-                        <text class="content-name">{{item.title}}</text>
-                    <text class="content-detail">{{item.address}}</text>
+                        <text class="content-name">{{item.value}}</text>
                    </view>
                </view> 
         </view>
-          <view wx:if="{{value==''}}" class="destination" wx:for="{{ entity}}" data-destination="{{item.title}}" data-end="{{item.address}}" bindtap="toIndex" wx:key="{{item.id}}">
+    
+        <view wx:if="{{!value==''}}" class="destination" wx:for="{{address}}" data-destination="{{item.title}}" data-end="{{item.address}}" bindtap="toIndex" wx:key="{{item.id}}">
                <view class="destination-content">
                    <view class="content-image">
                    <image src="../../assets/images/clock.png"></image>

@@ -11,7 +11,7 @@ export default class qqmap {//获取定位信息
       that.location().then(function (val) {
         //如果通过授权，那么直接使用腾讯的微信小程序sdk获取当前定位城市
         qqwxmap.reverseGeocoder({
-          location: {
+          location: { 
             latitude: val.latitude,
             longitude: val.longitude
           },
@@ -31,15 +31,33 @@ export default class qqmap {//获取定位信息
         //如果用户拒绝了授权，那么这里会提醒他，去授权后再定位
         console.log('shibai');
         wx.showModal({
-          title: '',
-          content: '自动定位需要授权地理定位选项',
-          confirmText: '去授权',
-          success(res) {
-            if (res.confirm) {
+          title: '请求授权当前位置',
+          content: '需要获取您的地理位置，请确认授权',
+          success: function (res) {
+            if (res.cancel) {
+              wx.showToast({
+                title: '拒绝授权',
+                icon: 'none',
+                duration: 1000
+              })
+            } else if (res.confirm) {
               wx.openSetting({
-                success(res) {
-                  console.log(res);
-                  that.getLocateInfo();
+                success: function (dataAu) {
+                  if (dataAu.authSetting["scope.userLocation"] == true) {
+                    wx.showToast({
+                      title: '授权成功',
+                      icon: 'success',
+                      duration: 1000
+                    })
+                    //再次授权，调用wx.getLocation的API
+                   that.getLocateInfo();
+                  } else {
+                    wx.showToast({
+                      title: '授权失败',
+                      icon: 'none',
+                      duration: 1000
+                    })
+                  }
                 }
               })
             }
